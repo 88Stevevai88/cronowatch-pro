@@ -69,7 +69,7 @@ def main():
     st.markdown("<h1 style='color:#00AEEF;'>👋 Benvenuto Piero in CronoWatch Pro</h1><p style='color:#FAFAFA;'>Monitoraggio automatico WCRO + Analisi Token</p>", unsafe_allow_html=True)
 
     with st.spinner("🔄 Recupero dati da Cronoscan..."):
-    data = get_internal_transactions()
+        data = get_internal_transactions()
     wcro_price = get_wcro_price()
 
     swap_data = []
@@ -121,6 +121,7 @@ def main():
         st.subheader("Dashboard")
         col1, col2, col3 = st.columns([1, 1, 1])
         col1.metric("💰 Totale WCRO", f"{total_wcro:.4f}")
+    col1.metric("📅 Giorni Attivi", f"{days_elapsed} giorni")
         col2.metric("💶 Totale EUR", f"€ {total_eur:.2f}")
         col3.metric("📈 Media Giornaliera", f"{avg_daily:.2f} WCRO")
         st.plotly_chart(format_line_chart(dff.groupby("Giorno")["Valore WCRO"].sum().cumsum().reset_index()), use_container_width=True)
