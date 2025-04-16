@@ -122,18 +122,19 @@ def main():
         st.subheader("Dashboard")
         col1, col2, col3 = st.columns([1, 1, 1])
         col1.metric("💰 Totale WCRO", f"{total_wcro:.4f}")
-col1.metric("📅 Giorni Attivi", f"{days_elapsed} giorni")
+        col1.metric("📅 Giorni Attivi", f"{days_elapsed} giorni")
         col2.metric("💶 Totale EUR", f"€ {total_eur:.2f}")
         col3.metric("📈 Media Giornaliera", f"{avg_daily:.2f} WCRO")
         st.plotly_chart(format_line_chart(dff.groupby("Giorno")["Valore WCRO"].sum().cumsum().reset_index()), use_container_width=True)
-        
-# Mappa token -> emoji
-token_icons = {
-    "LION": "🦁",
-    "BARA": "🍀",
-    "AGENTFUN": "🧬",
-    "Non rilevato": "❓"
-}
+        st.markdown("### 🔍 Ultime Transazioni")
+        token_icons = {
+            "LION": "🦁",
+            "BARA": "🍀",
+            "AGENTFUN": "🧬",
+            "Non rilevato": "❓"
+        }
+        dff["Token"] = dff["Token"].apply(lambda x: f"{token_icons.get(x, '')} {x}")
+        st.dataframe(dff[["Data", "Token", "Da", "Valore WCRO", "Valore EUR", "Link"]].tail(10), use_container_width=True)
 # Aggiungiamo l'icona accanto al nome token
 dff["Token"] = dff["Token"].apply(lambda x: f"{token_icons.get(x, '')} {x}")
 st.markdown("### 🔍 Ultime Transazioni")
