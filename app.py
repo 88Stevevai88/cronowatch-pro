@@ -69,8 +69,8 @@ def main():
     st.markdown("<h1 style='color:#00AEEF;'>👋 Benvenuto Piero in CronoWatch Pro</h1><p style='color:#FAFAFA;'>Monitoraggio automatico WCRO + Analisi Token</p>", unsafe_allow_html=True)
 
     with st.spinner("🔄 Recupero dati da Cronoscan..."):
-    # Recupero dati
-    data = get_internal_transactions()
+        # Recupero dati
+        data = get_internal_transactions()
     wcro_price = get_wcro_price()
 
     swap_data = []
