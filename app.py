@@ -4,6 +4,7 @@ import requests
 import pandas as pd
 import plotly.express as px
 from datetime import datetime
+from token_parser import estrai_token_da_input
 
 # === CONFIG ===
 WALLET = "0x65957920DA8F24592F54800039B31443Bb4CDE80".lower()
