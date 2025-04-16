@@ -135,10 +135,6 @@ def main():
         }
         dff["Token"] = dff["Token"].apply(lambda x: f"{token_icons.get(x, '')} {x}")
         st.dataframe(dff[["Data", "Token", "Da", "Valore WCRO", "Valore EUR", "Link"]].tail(10), use_container_width=True)
-# Aggiungiamo l'icona accanto al nome token
-dff["Token"] = dff["Token"].apply(lambda x: f"{token_icons.get(x, '')} {x}")
-st.markdown("### 🔍 Ultime Transazioni")
-st.dataframe(dff[["Data", "Token", "Da", "Valore WCRO", "Valore EUR", "Link"]].tail(10), use_container_width=True)
 
 
     with tab2:
@@ -150,10 +146,9 @@ st.dataframe(dff[["Data", "Token", "Da", "Valore WCRO", "Valore EUR", "Link"]].t
     with tab3:
         st.subheader("Token Tracker")
         token_sum = dff.groupby("Token")["Valore WCRO"].sum().reset_index().sort_values("Valore WCRO", ascending=False)
+        token_sum["Token"] = token_sum["Token"].apply(lambda x: f"{token_icons.get(x, '')} {x}")
         st.plotly_chart(format_pie_chart(token_sum), use_container_width=True)
-        
-token_sum["Token"] = token_sum["Token"].apply(lambda x: f"{token_icons.get(x, '')} {x}")
-st.bar_chart(token_sum.set_index("Token"))
+        st.bar_chart(token_sum.set_index("Token"))
 
 
     st.download_button("⬇️ Scarica CSV", data=dff.to_csv(index=False), file_name="wcro_report.csv", mime="text/csv")
